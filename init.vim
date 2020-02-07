@@ -1,4 +1,4 @@
-" __  ____   __  _   ___     _____ __  __ ____   ____
+" __  ____   __  _   ___	 _____ __  __ ____   ____
 "|  \/  \ \ / / | \ | \ \   / /_ _|  \/  |  _ \ / ___|
 "| |\/| |\ V /  |  \| |\ \ / / | || |\/| | |_) | |
 "| |  | | | |   | |\  | \ V /  | || |  | |  _ <| |___
@@ -43,7 +43,6 @@ source ~/.config/nvim/_machine_specific.vim
 let &t_ut=''
 set autochdir
 
-
 " ===
 " === Editor behavior
 " ===
@@ -54,6 +53,7 @@ set noexpandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+set mouse=a
 set autoindent
 set list
 set listchars=tab:\|\ ,trail:▫
@@ -130,7 +130,7 @@ noremap : q:i
 
 " Save & quit
 noremap Q :q<CR>
-noremap <C-q> :qa<CR>
+noremap <C-q> :q!<CR>
 noremap S :w<CR>
 
 " Open the vimrc file anytime
@@ -140,22 +140,35 @@ noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
 "noremap <LEADER>st :Startify<CR>
 
 " Undo operations
-noremap l u
+noremap <C-z> u
 
 " Insert Key
-noremap k i
-noremap K I
+noremap h i
+noremap H I
 
 " make Y to copy till the end of the line
 nnoremap Y y$
 
 " Copy to system clipboard
 vnoremap Y "+y
+" C-o --- back to last site
+" C-i --- return your site
+" :w !sudo tee % then :q! ----save file in sudo
+":%TOhtml -- make the file to html
+" :r !ls---- write all the file names in current directory
 
+" "ayy yank a line
+" then "Ayy append the content to a's clipboard
+" then "ap to paste the a's clipboard
+"
+"
+"
 " Indentation
 nnoremap < <<
 nnoremap > >>
 
+" set words backspace 
+" insertmode: 'c-w' delete the previous words
 " Search
 noremap <LEADER><CR> :nohlsearch<CR>
 
@@ -163,8 +176,8 @@ noremap <LEADER><CR> :nohlsearch<CR>
 noremap <LEADER>dw /\(\<\w\+\>\)\_s*\1
 
 " Space to Tab
-nnoremap <LEADER>tt :%s/    /\t/g
-vnoremap <LEADER>tt :s/    /\t/g
+nnoremap <LEADER>tt :%s/	/\t/g
+vnoremap <LEADER>tt :s/	/\t/g
 
 " Folding
 noremap <silent> <LEADER>o za
@@ -178,42 +191,47 @@ noremap <c-g> :tabe<CR>:term lazygit<CR>
 " === Cursor Movement
 " ===
 " New cursor movement (the default arrow keys are used for resizing windows)
-"     ^
-"     u
+"	 ^
+"	 u
 " < n   i >
-"     e
-"     v
-noremap <silent> u k
-noremap <silent> n h
-noremap <silent> e j
-noremap <silent> i l
+"	 e
+"	 v
+noremap <silent> i k
+noremap <silent> j h
+noremap <silent> k j
+noremap <silent> l l
 
 " U/E keys for 5 times u/e (faster navigation)
-noremap <silent> U 5k
-noremap <silent> E 5j
+noremap <silent> I 5k
+noremap <silent> K 5j
 
 " N key: go to the start of the line
-noremap <silent> N 0
+noremap <silent> J 0
+
 " I key: go to the end of the line
-noremap <silent> I $
+noremap <silent> L $
 
 " Faster in-line navigation
-noremap W 5w
-noremap B 5b
+noremap <silent> E 5e
+noremap <silent> Q 5b
+noremap <silent> q b
+noremap <silent> b q
 
-" set h (same as n, cursor left) to 'end of word'
-noremap h e
+
 
 " Ctrl + U or E will move up/down the view port without moving the cursor
-noremap <C-U> 5<C-y>
-noremap <C-E> 5<C-e>
+noremap <C-i> 5<C-y>
+noremap <C-k> 5<C-e>
 
 
 " ===
 " === Insert Mode Cursor Movement
 " ===
-inoremap <C-a> <ESC>A
+inoremap <M-L> <ESC>A
+inoremap <C-j> <ESC>I
 
+inoremap <M-j> <left>
+inoremap <M-l> <right>
 
 " ===
 " === Command Mode Cursor Movement
@@ -233,20 +251,23 @@ cnoremap <M-w> <S-Right>
 " ===
 " Use <space> + new arrow keys for moving the cursor around windows
 noremap <LEADER>w <C-w>w
-noremap <LEADER>u <C-w>k
-noremap <LEADER>e <C-w>j
-noremap <LEADER>n <C-w>h
-noremap <LEADER>i <C-w>l
+noremap <LEADER>i <C-w>k
+noremap <LEADER>k <C-w>j
+noremap <LEADER>j <C-w>h
+noremap <LEADER>l <C-w>l
 
 " Disable the default s key
 noremap s <nop>
 
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-noremap su :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap se :set splitbelow<CR>:split<CR>
-noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap si :set splitright<CR>:vsplit<CR>
-
+"noremap si :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+"noremap sk :set splitbelow<CR>:split<CR>
+"noremap sl :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+"noremap sj :set splitright<CR>:vsplit<CR>
+map sl :set splitright<CR>:vsplit<CR>
+map sj :set nosplitright<CR>:vsplit<CR>
+map si :set nosplitbelow<CR>:split<CR>
+map sk :set splitbelow<CR>:split<CR>
 " Resize splits with arrow keys
 noremap <up> :res +5<CR>
 noremap <down> :res -5<CR>
@@ -270,13 +291,13 @@ noremap <LEADER>q <C-w>j:q<CR>
 " === Tab management
 " ===
 " Create a new tab with tu
-noremap tu :tabe<CR>
+noremap ti :tabe<CR>
 " Move around tabs with tn and ti
-noremap tn :-tabnext<CR>
-noremap ti :+tabnext<CR>
+noremap tj :-tabnext<CR>
+noremap tl :+tabnext<CR>
 " Move the tabs with tmn and tmi
-noremap tmn :-tabmove<CR>
-noremap tmi :+tabmove<CR>
+noremap tmj :-tabmove<CR>
+noremap tml :+tabmove<CR>
 
 
 " ===
@@ -292,13 +313,13 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 " === Other useful stuff
 " ===
 " Move the next character to the end of the line with ctrl+9
-inoremap <C-u> <ESC>lx$p
+inoremap <C-l> <ESC>lx$p
 
 " Opening a terminal window
 noremap <LEADER>/ :term<CR>
 
 " Press space twice to jump to the next '<++>' and edit it
-noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+noremap <LEADER><LEADER> <Esc><++><CR>:nohlsearch<CR>c4l
 
 " Spelling Check with <space>sc
 noremap <LEADER>sc :set spell!<CR>
@@ -312,7 +333,7 @@ noremap <C-c> zz
 autocmd BufEnter * silent! lcd %:p:h
 
 " Call figlet
-noremap tx :r !figlet
+noremap fl :r !figlet
 
 noremap <LEADER>- :lN<CR>
 noremap <LEADER>= :lne<CR>
@@ -451,7 +472,8 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-p
 Plug 'tweekmonster/braceless.vim'
 
 " Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & sudo npm install ' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'theniceboy/bullets.vim'
 
@@ -459,12 +481,12 @@ Plug 'theniceboy/bullets.vim'
 "Plug 'Raimondi/delimitMate'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdcommenter' " in <space>cn to comment a line
+Plug 'scrooloose/nerdcommenter' " in <space>c<space> to comment a line
 Plug 'AndrewRadev/switch.vim' " gs to switch
 Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'gcmt/wildfire.vim' " in Visual mode, type k' to select all text in '', or type k) k] k} kp
 Plug 'junegunn/vim-after-object' " da= to delete what's after =
-Plug 'junegunn/vim-easy-align' " gaip= to align the = in paragraph, 
+Plug 'junegunn/vim-easy-align' " gaip= to align the = in paragraph,
 Plug 'tpope/vim-capslock'	" Ctrl+L (insert) to toggle capslock
 Plug 'easymotion/vim-easymotion'
 Plug 'Konfekt/FastFold'
@@ -581,21 +603,22 @@ function! s:check_back_space() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]	=~ '\s'
 endfunction
-inoremap <silent><expr> <Tab>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<Tab>" :
-			\ coc#refresh()
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-TAB>"
 "inoremap <silent><expr> <CR> pumvisible() ? "\<C-y><CR>" : "\<CR>"
 function! s:check_back_space() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <M-space> coc#refresh()
+
 " Useful commands
 nnoremap <silent> <space>y :<C-u>CocList -A --normal yank<cr>
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
@@ -605,13 +628,25 @@ noremap ta :CocCommand todolist.create<CR>
 noremap td :CocCommand todolist.upload<CR>
 noremap tD :CocCommand todolist.download<CR>
 noremap tc :CocCommand todolist.clearNotice<CR>
-noremap tc :CocCommand todolist.clearNotice<CR>
-noremap tl :CocList --normal todolist<CR>
+"noremap tl :CocList --normal todolist<CR>
 " coc-translator
 nmap ts <Plug>(coc-translator-p)
 " coc-markmap
 command! Markmap CocCommand markmap.create
-
+" coc-snippets
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"Use <C-l> for trigger snippet expand.
+imap <C-k> <Plug>(coc-snippets-expand)
+let g:coc_snippet_next = '<c-k>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-i>'
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-k> <Plug>(coc-snippets-expand-jump)
+"snippets.ultisnips.directories: [
+  ""UltiSnips",
+  ""~/.config/nvim/UltiSnips"
+"]
 
 " ===
 " === MarkdownPreview
@@ -623,7 +658,7 @@ let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
 let g:mkdp_open_ip = ''
 let g:mkdp_echo_preview_url = 0
-let g:mkdp_browserfunc = ''
+"let g:mkdp_browserfunc ='MKDP_browserfunc_default'
 let g:mkdp_preview_options = {
 			\ 'mkit': {},
 			\ 'katex': {},
@@ -637,8 +672,8 @@ let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
-
-
+"let g:mkdp_path_to_chrome = "chromium"
+"let g:mkdp_echo_preview_url = 1
 " ===
 " === Python-syntax
 " ===
@@ -669,43 +704,43 @@ noremap <C-w> :Buffers<CR>
 
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 ruler
+			\| autocmd BufLeave <buffer> set laststatus=2 ruler
 
 command! -bang -nargs=* Buffers
-  \ call fzf#vim#buffers(
-  \   '',
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:0%', '?'),
-  \   <bang>0)
+			\ call fzf#vim#buffers(
+			\   '',
+			\   <bang>0 ? fzf#vim#with_preview('up:60%')
+			\			 : fzf#vim#with_preview('right:0%', '?'),
+			\   <bang>0)
 
 
 command! -bang -nargs=* LinesWithPreview
-    \ call fzf#vim#grep(
-    \   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%')), 1,
-    \   fzf#vim#with_preview({}, 'up:50%', '?'),
-    \   1)
+			\ call fzf#vim#grep(
+			\   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%')), 1,
+			\   fzf#vim#with_preview({}, 'up:50%', '?'),
+			\   1)
 
 command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(
-  \   '',
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%', '?'),
-  \   <bang>0)
+			\ call fzf#vim#ag(
+			\   '',
+			\   <bang>0 ? fzf#vim#with_preview('up:60%')
+			\			 : fzf#vim#with_preview('right:50%', '?'),
+			\   <bang>0)
 
 
 command! -bang -nargs=* MRU call fzf#vim#history(fzf#vim#with_preview())
 
 command! -bang BTags
-  \ call fzf#vim#buffer_tags('', {
-  \     'down': '40%',
-  \     'options': '--with-nth 1 
-  \                 --reverse 
-  \                 --prompt "> " 
-  \                 --preview-window="70%" 
-  \                 --preview "
-  \                     tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
-  \                     head -n 16"'
-  \ })
+			\ call fzf#vim#buffer_tags('', {
+			\	 'down': '40%',
+			\	 'options': '--with-nth 1
+			\				 --reverse
+			\				 --prompt "> "
+			\				 --preview-window="70%"
+			\				 --preview "
+			\					 tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
+			\					 head -n 16"'
+			\ })
 
 
 "" ===
@@ -755,7 +790,7 @@ let g:bookmark_location_list = 1
 " ===
 " === Undotree
 " ===
-noremap L :UndotreeToggle<CR>
+noremap <C-U> :UndotreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -763,10 +798,10 @@ let g:undotree_WindowLayout = 2
 let g:undotree_DiffpanelHeight = 8
 let g:undotree_SplitWidth = 24
 function g:Undotree_CustomMap()
-	nmap <buffer> u <plug>UndotreeNextState
-	nmap <buffer> e <plug>UndotreePreviousState
-	nmap <buffer> U 5<plug>UndotreeNextState
-	nmap <buffer> E 5<plug>UndotreePreviousState
+	nmap <buffer> i <plug>UndotreeNextState
+	nmap <buffer> k <plug>UndotreePreviousState
+	nmap <buffer> I 5<plug>UndotreeNextState
+	nmap <buffer> K 5<plug>UndotreePreviousState
 endfunc
 
 
@@ -774,11 +809,11 @@ endfunc
 " == vim-multiple-cursor
 " ==
 let g:multi_cursor_use_default_mapping = 0
-let g:multi_cursor_start_word_key = '<c-k>'
-let g:multi_cursor_select_all_word_key = '<a-k>'
-let g:multi_cursor_start_key = 'g<c-k>'
-let g:multi_cursor_select_all_key = 'g<a-k>'
-let g:multi_cursor_next_key = '<c-k>'
+let g:multi_cursor_start_word_key = '<c-d>'
+let g:multi_cursor_select_all_word_key = '<a-d>'
+let g:multi_cursor_start_key = 'g<c-d>'
+let g:multi_cursor_select_all_key = 'g<a-d>'
+let g:multi_cursor_next_key = '<c-d>'
 let g:multi_cursor_prev_key = '<c-p>'
 let g:multi_cursor_skip_key = '<C-s>'
 let g:multi_cursor_quit_key = '<Esc>'
@@ -821,9 +856,9 @@ let g:vista_default_executive = 'ctags'
 let g:vista_fzf_preview = ['right:50%']
 let g:vista#renderer#enable_icon = 1
 let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
+			\   "function": "\uf794",
+			\   "variable": "\uf71b",
+			\  }
 function! NearestMethodOrFunction() abort
 	return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
@@ -843,16 +878,15 @@ let g:ranger_map_keys = 0
 " ===
 noremap <LEADER>gi :FzfGitignore<CR>
 
-
 " ===
 " === Ultisnips
 " ===
 let g:tex_flavor = "latex"
 inoremap <c-n> <nop>
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-e>"
-let g:UltiSnipsJumpBackwardTrigger="<c-n>"
-let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/Ultisnips/', 'UltiSnips']
+let g:UltiSnipsExpandTrigger="<c-n>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-m>"
+let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/Ultisnips/', 'UltiSnips']
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap <c-r>
 
 
@@ -996,6 +1030,7 @@ let g:colorizer_syntax = 1
 "let g:floaterm_width = &columns/3*2
 
 
+
 " ===
 " === vim-easymotion
 " ===
@@ -1064,28 +1099,83 @@ autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 " ===
 " === vim-map-leader
 " ===
+"let g:leaderMenu = {'name':  "Shortcut Menu",
+			"\'SPC f':  ['Advanced find'],
+			"\'SPC rc': ['Edit nvim config'],
+			"\'SPC Enter':  ['Clear search'],
+			"\'SPC dw':  ['Remove adj. dup. words'],
+			"\'SPC tt':  ['spc to tabs'],
+			"\'SPC o':  ['Open folds'],
+			"\'SPC q':  ['Close win below'],
+			"\'SPC /':  ['Open terminal'],
+			"\'SPC <SPC>':  ['Find <++>'],
+			"\'SPC sc':  ['Toggle spell-check'],
+			"\'SPC gf':  ['Fold unchanged'],
+			"\'SPC g-':  ['Previous hunk'],
+			"\'SPC g=':  ['Next Hunk'],
+			"\'SPC rn':  ['Rename variable'],
+			"\'SPC tm':  ['Toggle table-mode'],
+			"\'SPC a':  ['Calculate equation'],
+			"\'SPC gi':  ['New .gitignore'],
+			"\'SPC gy':  ['Toggle focus mode'],
+			"\}
+
+
 let g:leaderMenu = {'name':  "Shortcut Menu",
-\'SPC f':  ['Advanced find'],
-\'SPC rc': ['Edit nvim config'],
-\'SPC Enter':  ['Clear search'],
-\'SPC dw':  ['Remove adj. dup. words'],
-\'SPC tt':  ['spc to tabs'],
-\'SPC o':  ['Open folds'],
-\'SPC q':  ['Close win below'],
-\'SPC /':  ['Open terminal'],
-\'SPC <SPC>':  ['Find <++>'],
-\'SPC sc':  ['Toggle spell-check'],
-\'SPC gf':  ['Fold unchanged'],
-\'SPC g-':  ['Previous hunk'],
-\'SPC g=':  ['Next Hunk'],
-\'SPC rn':  ['Rename variable'],
-\'SPC tm':  ['Toggle table-mode'],
-\'SPC a':  ['Calculate equation'],
-\'SPC gi':  ['New .gitignore'],
-\'SPC gy':  ['Toggle focus mode'],
-\}
+			\'N < >':  ['Indentation'],
+			\'SPC rc': ['Edit nvim config'],
+			\'SPC Enter':  ['Clear search'],
+			\'SPC dw':  ['Remove adj. dup. words'],
+			\'SPC o':  ['Open folds'],
+			\'SPC q':  ['Close win below'],
+			\'SPC /':  ['Open terminal'],
+			\'SPC <SPC>':  ['Find <++>'],
+			\'SPC sc':  ['Toggle spell-check'],
+			\'SPC gf':  ['Fold unchanged'],
+			\'SPC g-':  ['Previous hunk'],
+			\'SPC g=':  ['Next Hunk'],
+			\'SPC rn':  ['Rename variable'],
+			\'SPC tm':  ['Toggle table-mode'],
+			\'SPC a':  ['Calculate equation'],
+			\'SPC gi':  ['New .gitignore'],
+			\'SPC gy':  ['Toggle focus mode'],
+			\'i: C-l':  ['Move the next character to the end'],
+			\' ` ':  ['change the case'],
+			\' fl ':  ['call figlet'],
+			\' \s ':  ['find and replace (g)'],
+			\' gn ':  ['go to file in new'],
+			\' gf ':  ['go to file in current'],
+			\' gt ':  ['go type definition'],
+			\' gi ':  ['go implementation'],
+			\' gr ':  ['go reference'],
+			\' gd ':  ['go definition'],
+			\' ts ':  ['translator'],
+			\' tt ':  ['coc explorer'],
+			\'tt: (r)c ':  ['(recursive)collapse'],
+			\'tt: (r)e ':  ['(recursive)expand'],
+			\'tt: s ':  ['open in vsplit'],
+			\'tt: t ':  ['open in tab'],
+			\'tt: yp ':  ['copy file path'],
+			\'tt: yn ':  ['copy file name'],
+			\'tt: a ':  ['add file'],
+			\'tt: M ':  ['add directory'],
+			\'tt: cw ':  ['rename'],
+			\'tt: . ':  ['toglle hidden'],
+			\'tt: f(F) ':  ['find (recursive)'],
+			\' SPC tm ':  ['table mode toggle'],
+			\' c-p ':  ['FZF'],
+			\' c-f ':  ['Ag'],
+			\' c-u ':  ['undo tree toggle'],
+			\' T ':  ['vista variable list'],
+			\' \f ':  ['auto format'],
+			\' ''':  ['easyemotion find a character'],
+			\' SPC gy ':  ['Focus screen'],
+			\' cs"`':  ['vim-surround'],
+			\'snippet:<CR> or c-k':  ['snippet expand and next'],
+			\'snippet: c-i':  ['snippet prev'],
+			\}
 nnoremap <silent> ? :call leaderMapper#start() "<Space>"<CR>
-let g:leaderMapperWidth = 80
+let g:leaderMapperWidth = 100
 
 
 " ===
@@ -1116,7 +1206,7 @@ let g:session_autoload = 'no'
 "let g:session_autosave_silent = 1
 set sessionoptions-=buffers
 set sessionoptions-=options
-noremap sl :OpenSession<CR>
+noremap so :OpenSession<CR>
 noremap ss :SaveSession<CR>
 noremap sc :CloseSession<CR>
 noremap sD :DeleteSession<CR>
@@ -1131,10 +1221,10 @@ noremap sA :AppendTabSession<CR>
 "noremap <c-d> :call DebuggerRun()<CR>:VBGcontinue<CR>
 ""noremap <f5> :call DebuggerRun()<CR>
 "func! DebuggerRun()
-	"exec "w"
-	"if &filetype == 'python'
-		"VBGstartPDB3 %
-	"endif
+"exec "w"
+"if &filetype == 'python'
+"VBGstartPDB3 %
+"endif
 "endfunc
 "noremap <f3> :VBGkill<CR>
 "noremap <f5> :VBGcontinue<CR>
@@ -1159,7 +1249,45 @@ cnoreabbrev sudowrite w suda://%
 
 
 " ===================== End of Plugin Settings =====================
+function! GotoFile(w)
+    let curword = expand("<cfile>")
+    if (strlen(curword) == 0)
+        return
+    endif
+    let matchstart = match(curword, ':\d\+$')
+    if matchstart > 0
+        let pos = '+' . strpart(curword, matchstart+1)
+        let fname = strpart(curword, 0, matchstart)
+    else
+        let pos = ""
+        let fname = curword
+    endif
+ 
+    " check exists file.
+    if filereadable(fname)
+        let fullname = fname
+    else
+        " try find file with prefix by working directory
+        let fullname = getcwd() . '/' . fname
+        if ! filereadable(fullname)
+            " the last try, using current directory based on file opened.
+            let fullname = expand('%:h') . '/' . fname
+        endif
+    endif
 
+   " Open new window if requested
+    if a:w == "new"
+        new
+    endif
+    " Use 'find' so path is searched like 'gf' would
+    execute 'find ' . pos . ' ' . fname
+endfunction
+
+set isfname+=: " include colon in filenames
+
+" Override vim commands 'gf', '^Wf', '^W^F'
+nnoremap gf :call GotoFile("")<CR>
+nnoremap gn :call GotoFile("new")<CR>
 
 " ===
 " === Necessary Commands to Execute
