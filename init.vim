@@ -319,9 +319,9 @@ inoremap <C-l> <ESC>lx$p
 noremap <LEADER>/ :term<CR>
 
 " Press space twice to jump to the next '<++>' and edit it
-noremap <LEADER><LEADER> <Esc><++><CR>:nohlsearch<CR>c4l
+noremap <LEADER>+ /<++><CR>:nohlsearch<CR>c4l
 
-" Spelling Check with <space>sc
+		" Spelling Check with <space>sc
 noremap <LEADER>sc :set spell!<CR>
 
 " Press ` to change case (instead of ~)
@@ -1129,7 +1129,7 @@ let g:leaderMenu = {'name':  "Shortcut Menu",
 			\'SPC o':  ['Open folds'],
 			\'SPC q':  ['Close win below'],
 			\'SPC /':  ['Open terminal'],
-			\'SPC <SPC>':  ['Find <++>'],
+			\'SPC +':  ['Find <++>'],
 			\'SPC sc':  ['Toggle spell-check'],
 			\'SPC gf':  ['Fold unchanged'],
 			\'SPC g-':  ['Previous hunk'],
@@ -1175,7 +1175,7 @@ let g:leaderMenu = {'name':  "Shortcut Menu",
 			\'snippet: c-i':  ['snippet prev'],
 			\}
 nnoremap <silent> ? :call leaderMapper#start() "<Space>"<CR>
-let g:leaderMapperWidth = 100
+let g:leaderMapperWidth = 200
 
 
 " ===
