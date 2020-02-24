@@ -129,7 +129,7 @@ noremap ; :
 noremap : q:i
 
 " Save & quit
-noremap Q :q<CR>
+"noremap Q :q<CR>
 noremap <C-q> :q!<CR>
 noremap S :w<CR>
 
@@ -212,10 +212,11 @@ noremap <silent> J 0
 noremap <silent> L $
 
 " Faster in-line navigation
-noremap <silent> E 5e
-noremap <silent> Q 5b
-noremap <silent> q b
-noremap <silent> b q
+noremap <silent> R 5e
+noremap <silent> W 5b
+noremap <silent> w b
+noremap <silent> r e
+noremap <silent> e w
 
 
 
@@ -258,16 +259,17 @@ noremap <LEADER>l <C-w>l
 
 " Disable the default s key
 noremap s <nop>
-
+" Delete one word
+inoremap <M-a> <C-w>
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-"noremap si :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-"noremap sk :set splitbelow<CR>:split<CR>
-"noremap sl :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-"noremap sj :set splitright<CR>:vsplit<CR>
-map sl :set splitright<CR>:vsplit<CR>
-map sj :set nosplitright<CR>:vsplit<CR>
-map si :set nosplitbelow<CR>:split<CR>
-map sk :set splitbelow<CR>:split<CR>
+noremap si :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+noremap sk :set splitbelow<CR>:split<CR>
+noremap sj :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+noremap sl :set splitright<CR>:vsplit<CR>
+"map sl :set splitright<CR>:vsplit<CR>
+"map sj :set nosplitright<CR>:vsplit<CR>
+"map si :set nosplitbelow<CR>:split<CR>
+"map sk :set splitbelow<CR>:split<CR>
 " Resize splits with arrow keys
 noremap <up> :res +5<CR>
 noremap <down> :res -5<CR>
@@ -342,7 +344,7 @@ noremap <LEADER>= :lne<CR>
 noremap \s :%s//g<left><left>
 
 " Compile function
-noremap r :call CompileRunGcc()<CR>
+noremap b :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -869,7 +871,7 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 " ===
 " === Ranger.vim
 " ===
-nnoremap R :Ranger<CR>
+nnoremap <LEADER>r :Ranger<CR>
 let g:ranger_map_keys = 0
 
 
