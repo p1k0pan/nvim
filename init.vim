@@ -132,6 +132,8 @@ noremap : q:i
 "noremap Q :q<CR>
 noremap <C-q> :q!<CR>
 noremap S :w<CR>
+noremap <C-s> :w !sudo tee %
+"----save file in sudo
 
 " Open the vimrc file anytime
 noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
@@ -229,7 +231,7 @@ noremap <C-k> 5<C-e>
 " === Insert Mode Cursor Movement
 " ===
 inoremap <M-L> <ESC>A
-inoremap <C-j> <ESC>I
+inoremap <M-J> <ESC>I
 
 inoremap <M-j> <left>
 inoremap <M-l> <right>
@@ -260,7 +262,7 @@ noremap <LEADER>l <C-w>l
 " Disable the default s key
 noremap s <nop>
 " Delete one word
-inoremap <M-a> <C-w>
+inoremap <M-h> <C-w>
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
 noremap si :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 noremap sk :set splitbelow<CR>:split<CR>
@@ -288,7 +290,7 @@ noremap srv <C-w>b<C-w>H
 " Press <SPACE> + q to close the window below the current window
 noremap <LEADER>q <C-w>j:q<CR>
 
-
+noremap <C-h> <C-i>
 " ===
 " === Tab management
 " ===
@@ -339,6 +341,9 @@ noremap fl :r !figlet
 
 noremap <LEADER>- :lN<CR>
 noremap <LEADER>= :lne<CR>
+
+" python ipdb
+noremap <lEADER>de o<Esc>iimport ipdb; ipdb.set_trace()<Esc>
 
 " find and replace
 noremap \s :%s//g<left><left>
@@ -698,7 +703,7 @@ set rtp+=/usr/local/opt/fzf
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 noremap <C-p> :FZF<CR>
 noremap <C-f> :Ag<CR>
-noremap <C-h> :MRU<CR>
+noremap <C-j> :MRU<CR>
 noremap <C-t> :BTags<CR>
 noremap <C-l> :LinesWithPreview<CR>
 noremap <C-w> :Buffers<CR>
@@ -1132,7 +1137,7 @@ let g:leaderMenu = {'name':  "Shortcut Menu",
 			\'SPC q':  ['Close win below'],
 			\'SPC /':  ['Open terminal'],
 			\'SPC +':  ['Find <++>'],
-			\'SPC sc':  ['Toggle spell-check'],
+			\'SPC sc':  ['Toggle spell-check z=:list'],
 			\'SPC gf':  ['Fold unchanged'],
 			\'SPC g-':  ['Previous hunk'],
 			\'SPC g=':  ['Next Hunk'],
